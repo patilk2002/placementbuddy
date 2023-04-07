@@ -10,13 +10,39 @@ import {
   ErrorComponent,
 } from "@pankod/refine-mui";
 
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutline,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from "@mui/icons-material";
+
 import dataProvider from "@pankod/refine-simple-rest";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
 import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
-import { Login } from "pages/login";
+
+
+import {
+  Login,
+  Home,
+  Agents,
+  MyProfile,
+  PropertyDetails,
+  AllProperties,
+  CreateProperty,
+  AgentProfile,
+  EditProperty,
+} from "pages";
+
+
+
+
+
+
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
 
@@ -97,15 +123,71 @@ function App() {
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
           resources={[
+
             {
-              name: "posts",
-              list: MuiInferencer,
-              edit: MuiInferencer,
-              show: MuiInferencer,
-              create: MuiInferencer,
-              canDelete: true,
+              name: "D",
+              // list:MuiInferencer,
+              list: Home,
+              icon: <ChatBubbleOutline />,
+          },
+
+            {
+                name: "Developement",
+                // list:MuiInferencer,
+                list: Agents,
+                show: AgentProfile,
+                icon: <PeopleAltOutlined />,
             },
-          ]}
+
+
+
+            {
+              name: "SDESheet",
+              // list:MuiInferencer,
+              list: AllProperties,
+              icon: <StarOutlineRounded />,
+          },
+
+            {
+              name: "Opensource",
+              // list:MuiInferencer,
+              list: AllProperties,
+              show: PropertyDetails,
+              create: CreateProperty,
+              edit: EditProperty,
+              icon: <VillaOutlined />,
+          },
+
+          {
+            name: "Placement",
+            // list:MuiInferencer,
+            list: AllProperties,
+            show: PropertyDetails,
+            create: CreateProperty,
+            edit: EditProperty,
+            icon: <VillaOutlined />,
+        },
+
+            {
+                name: "reviews",
+                // list:MuiInferencer,
+                list: Home,
+                icon: <StarOutlineRounded />,
+            },
+            {
+                name: "messages",
+                // list:MuiInferencer,
+                list: Home,
+                icon: <ChatBubbleOutline />,
+            },
+            {
+                name: "my-profile",
+                options: { label: "My Profile " },
+                // list:MuiInferencer,
+                list: MyProfile,
+                icon: <AccountCircleOutlined />,
+            },
+        ]}
           Title={Title}
           Sider={Sider}
           Layout={Layout}
@@ -113,6 +195,7 @@ function App() {
           routerProvider={routerProvider}
           authProvider={authProvider}
           LoginPage={Login}
+          DashboardPage={Home}          
         />
       </RefineSnackbarProvider>
     </ColorModeContextProvider>
